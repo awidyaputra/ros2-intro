@@ -1,93 +1,39 @@
-*Looking for a shareable component template? Go here --> [sveltejs/component-template](https://github.com/sveltejs/component-template)*
+# Introduction to ROS 2
 
----
+This project aims to teach ROS 2 using a minimum-install environment.
 
-# svelte app
+One of the major problems in teaching ROS is that it requires a laborious installation process. This scares off a lot of people especially those that are used to a Windows or Mac environment.
 
-This is a project template for [Svelte](https://svelte.dev) apps. It lives at https://github.com/sveltejs/template.
+My solution is to package the program using web technology. That way we can focus on teaching core concepts such as publisher-subscriber. An additional bonus in using web technology is that it allows us to build a cross-platform GUI.
 
-To create a new project based on this template using [degit](https://github.com/Rich-Harris/degit):
+## How to install
 
-```bash
-npx degit sveltejs/template svelte-app
-cd svelte-app
-```
+Note: I've only tested on [Ubuntu 18.04](http://releases.ubuntu.com/18.04/).
 
-*Note that you will need to have [Node.js](https://nodejs.org) installed.*
+### Prerequisites
 
+1. Install [ROS 2 Dashing](https://index.ros.org/doc/ros2/Installation/Dashing/).
+2. Install Node 10 using [nvm](https://github.com/nvm-sh/nvm). Node 10 is chosen because the ROS Client Library ([rclnodejs](https://github.com/RobotWebTools/rclnodejs)) will break using a later version.
+3. (Optional) Install [pnpm](https://pnpm.js.org/).
 
-## Get started
+### Installation
 
-Install the dependencies...
+1. Clone this repository.
+2. Source your ROS 2 setup script.
+3. Run `pnpm install`.
 
-```bash
-cd svelte-app
-npm install
-```
+## Running the program
 
-...then start [Rollup](https://rollupjs.org):
+- Go to the project's root directory.
+- Source ROS 2.
+- Run `pnpm start`. Open localhost:5000 in your browser.
+- Open another terminal. Run `node src/server.js`.
+- Open another terminal. Source ROS 2. Run `node src/subscription-example.js`.
+- Open another terminal. Source ROS 2. Run `ros2 topic pub /sub_example_topic std_msgs/msg/String '{data: "goodbye"}'`.
+- You should see the words in your browser change to 'goodbye'.
+- This example shows how we can connect a ROS node with a browser frontend using socketio as the message broker.
 
-```bash
-npm run dev
-```
+## TODO
 
-Navigate to [localhost:5000](http://localhost:5000). You should see your app running. Edit a component file in `src`, save it, and reload the page to see your changes.
-
-By default, the server will only respond to requests from localhost. To allow connections from other computers, edit the `sirv` commands in package.json to include the option `--host 0.0.0.0`.
-
-
-## Building and running in production mode
-
-To create an optimised version of the app:
-
-```bash
-npm run build
-```
-
-You can run the newly built app with `npm run start`. This uses [sirv](https://github.com/lukeed/sirv), which is included in your package.json's `dependencies` so that the app will work when you deploy to platforms like [Heroku](https://heroku.com).
-
-
-## Single-page app mode
-
-By default, sirv will only respond to requests that match files in `public`. This is to maximise compatibility with static fileservers, allowing you to deploy your app anywhere.
-
-If you're building a single-page app (SPA) with multiple routes, sirv needs to be able to respond to requests for *any* path. You can make it so by editing the `"start"` command in package.json:
-
-```js
-"start": "sirv public --single"
-```
-
-
-## Deploying to the web
-
-### With [now](https://zeit.co/now)
-
-Install `now` if you haven't already:
-
-```bash
-npm install -g now
-```
-
-Then, from within your project folder:
-
-```bash
-cd public
-now deploy --name my-project
-```
-
-As an alternative, use the [Now desktop client](https://zeit.co/download) and simply drag the unzipped project folder to the taskbar icon.
-
-### With [surge](https://surge.sh/)
-
-Install `surge` if you haven't already:
-
-```bash
-npm install -g surge
-```
-
-Then, from within your project folder:
-
-```bash
-npm run build
-surge public my-project.surge.sh
-```
+- Dockerize project.
+- Consider using ElectronJS. Note there might
